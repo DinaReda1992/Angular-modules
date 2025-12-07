@@ -1,6 +1,5 @@
-import { Component, Input , Output, EventEmitter, input, output} from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { DUMMY_USERS } from '../dummy-users';
-import { required } from '@angular/forms/signals';
 import { User } from './user.model';
 
 //using type alias
@@ -14,9 +13,9 @@ import { User } from './user.model';
 
 @Component({
   selector: 'app-user',
-  standalone:false,
+  standalone: false,
   templateUrl: './user.component.html',
-  styleUrl: './user.component.css',
+  styleUrls: ['./user.component.css'],
 })
 export class UserComponent {
 //Using Decorators
@@ -39,9 +38,9 @@ export class UserComponent {
 //     name: string;
 // };
 
-@Input ({required:true}) user!: User;
-@Input({required:true}) selected!: boolean;
-select = output<string>();
+@Input({ required: true }) user!: User;
+@Input({ required: true }) selected!: boolean;
+@Output() select = new EventEmitter<string>();
 
 get imagePath(){
     return 'assets/images/users/' + this.user.avatar;

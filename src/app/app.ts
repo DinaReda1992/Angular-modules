@@ -6,12 +6,13 @@ import { DUMMY_USERS } from './dummy-users';
   selector: 'app-root',
   standalone:false,
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrls: ['./app.css']
 })
 export class App {
   protected readonly title = signal('maxillian');
   users = DUMMY_USERS;
-  selectedUserId?: string;
+  // Auto-select the first user so tasks are visible on initial load
+  selectedUserId: string | undefined = this.users && this.users.length ? this.users[0].id : undefined;
 
 
 
@@ -21,6 +22,6 @@ export class App {
 
   onSelectUser(id: string) {
     this.selectedUserId = id;
-    // console.log('Selected user ID:', id);
+    console.log('Selected user ID:', id);
   }
 }

@@ -11,7 +11,7 @@ import {TasksService} from './tasks.service';
   selector: 'app-tasks',
   standalone: false,
   templateUrl: './tasks.component.html',
-  styleUrl: './tasks.component.css',
+  styleUrls: ['./tasks.component.css'],
 })
 export class TasksComponent {
 // tasks=[dummyTasks];
@@ -25,7 +25,9 @@ constructor (private tasksService: TasksService) {
 }
 
 get selectedUserTasks(){
-    return this.tasksService.getUserTasks(this.userId);
+  const tasks = this.tasksService.getUserTasks(this.userId);
+  console.log('Tasks requested for userId=', this.userId, ' -> found=', tasks.length);
+  return tasks;
 }
 
 // @Input() user!:{

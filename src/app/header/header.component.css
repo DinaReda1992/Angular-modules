@@ -36,9 +36,38 @@ p {
   text-wrap: balance;
 }
 
+/* Header action (refresh/reset) */
+.header-actions {
+  margin-top: 0.5rem;
+}
+
+.header-actions button {
+  background: transparent;
+  color: #fff;
+  border: 1px solid rgba(255,255,255,0.25);
+  padding: 0.45rem 0.7rem;
+  border-radius: 8px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background-color 120ms ease, transform 120ms ease, box-shadow 120ms ease;
+}
+
+.header-actions button:hover {
+  background: rgba(255,255,255,0.06);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(0,0,0,0.25);
+}
+
+.header-actions button:active {
+  transform: translateY(0);
+}
+
 @media (min-width: 768px) {
   header {
     padding: 2rem;
+    flex-direction: row;
+    justify-content: space-between;
+    text-align: left;
   }
 
   img {

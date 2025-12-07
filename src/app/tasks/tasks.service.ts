@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { NewTask } from '../new-task/new-task.model';
+import { dummyTasks } from '../dummy-tasks';
 @Injectable({
   providedIn: 'root',
 })
@@ -30,10 +31,33 @@ export class TasksService {
   ];
 
 constructor() {
-  const tasks = localStorage.getItem('tasks');
-  if (tasks) {
-    this.tasks = JSON.parse(tasks);
+  const tasksJson = localStorage.getItem('tasks');
+  if (tasksJson) {
+    try {
+      const parsed = JSON.parse(tasksJson);
+      // If stored tasks exist and are non-empty, use them. Otherwise keep bundled defaults.
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        this.tasks = parsed;
+      } else {
+        // persist the in-memory defaults so storage is seeded
+        this.saveTasksToStorage();
+      }
+    } catch (e) {
+      // If parsing fails, fall back to defaults and overwrite storage
+      this.saveTasksToStorage();
+    }
+  } else {
+    // No stored tasks — seed storage with bundled defaults
+    this.saveTasksToStorage();
   }
+}
+
+/**
+ * Reset tasks to the bundled defaults and persist to localStorage.
+ */
+resetToDefaults() {
+  this.tasks = [...dummyTasks];
+  this.saveTasksToStorage();
 }
 
   getUserTasks(userId: string) {
